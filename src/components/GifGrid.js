@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 const GifGrid = ({category}) => {
+
+    const [count, setCount] = useState(0);
+
+    useEffect( ()=>{
+        getGifs();
+    }, [] )
 
     const getGifs = async() => {
         const url = 'https://api.giphy.com/v1/gifs/search?q=Rick and Morty&limit=10&api_key=pur1jAp1bOFh7zzIFHzuSRXSKqyX3Tfr'
@@ -18,8 +24,6 @@ const GifGrid = ({category}) => {
 
         console.log(gifs);
     }
-
-    getGifs();
 
     return (
         <div>

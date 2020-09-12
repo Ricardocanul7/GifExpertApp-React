@@ -1,4 +1,5 @@
 import React from 'react';
+import '@testing-library/jest-dom';
 import { useFetchGifs } from '../../hooks/useFetchGifs';
 const { shallow } = require("enzyme");
 const { default: GifGrid } = require("../../components/GifGrid");
@@ -22,6 +23,11 @@ describe('Pruebas en <GifGrid />', () => {
             id: 'ABC',
             url: 'http://localhost/cualquiercosa.jpg',
             title: 'Cualquier cosa'
+        },
+        {
+            id: 'DEF',
+            url: 'http://localhost/cualquiercosa.jpg',
+            title: 'Cualquier cosa'
         }];
         useFetchGifs.mockReturnValue({
             data : gifs,
@@ -29,7 +35,10 @@ describe('Pruebas en <GifGrid />', () => {
         });
 
         const wrapper = shallow(<GifGrid category={category}/>);
+
         expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find('p').exists()).toBe(false);
+        expect(wrapper.find('GifGridItem').length).toBe(gifs.length);
     })
     
 })
